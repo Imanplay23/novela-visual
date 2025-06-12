@@ -12,6 +12,12 @@ html {
   overflow: hidden;
   color: #f0f0f0;
   cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #game {
@@ -31,7 +37,16 @@ html {
   background-repeat: no-repeat;
   filter: brightness(0.7) contrast(1.1);
   z-index: 0;
-  transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Transiciones más rápidas para móviles */
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optimización para dispositivos móviles */
+@media (max-width: 768px) {
+  #background {
+    transition: all 0.4s ease-out;
+    will-change: background-image;
+  }
 }
 
 /* Clase adicional para backgrounds pequeños */
@@ -48,7 +63,7 @@ html {
 
 #background::before {
   content: "";
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -69,38 +84,90 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 250px;
+  top: 15vh;
   left: 50%;
   transform: translateX(-50%);
   width: 350px;
-  height: 550px;
+  height: 55vh;
   max-width: 90vw;
-  max-height: 70vh;
+  max-height: 60vh;
   z-index: 2;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center bottom;
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   opacity: 1;
   filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+  will-change: opacity, transform;
+}
+
+/* Optimización para móviles */
+@media (max-width: 768px) {
+  #character {
+    transition: all 0.3s ease-out;
+    top: 10vh;
+    height: 50vh;
+    width: 280px;
+  }
 }
 
 /* Clase para personajes muy altos */
 #character.tall-char {
-  height: 600px;
+  height: 60vh;
   width: 300px;
 }
 
 /* Clase para personajes muy anchos */
 #character.wide-char {
-  height: 450px;
+  height: 45vh;
   width: 400px;
 }
 
 /* Clase para personajes pequeños */
 #character.small-char {
-  height: 600px;
+  height: 55vh;
   width: 450px;
+}
+
+/* Ajustes responsivos para personajes */
+@media (max-width: 768px) {
+  #character.tall-char {
+    height: 50vh;
+    width: 240px;
+  }
+  
+  #character.wide-char {
+    height: 40vh;
+    width: 320px;
+  }
+  
+  #character.small-char {
+    height: 45vh;
+    width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  #character {
+    top: 8vh;
+    height: 45vh;
+    width: 250px;
+  }
+  
+  #character.tall-char {
+    height: 45vh;
+    width: 200px;
+  }
+  
+  #character.wide-char {
+    height: 35vh;
+    width: 280px;
+  }
+  
+  #character.small-char {
+    height: 40vh;
+    width: 260px;
+  }
 }
 
 #character.fade-out {
@@ -131,6 +198,25 @@ html {
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   z-index: 3;
   transform: translateY(0);
+  min-height: 25vh;
+  max-height: 40vh;
+}
+
+/* Ajustes responsivos para dialogue-box */
+@media (max-width: 768px) {
+  #dialogue-box {
+    padding: 20px 25px 25px;
+    min-height: 30vh;
+    max-height: 45vh;
+  }
+}
+
+@media (max-width: 480px) {
+  #dialogue-box {
+    padding: 15px 20px 20px;
+    min-height: 35vh;
+    max-height: 50vh;
+  }
 }
 
 @keyframes slideUp {
@@ -150,6 +236,21 @@ html {
   opacity: 1;
 }
 
+/* Ajustes responsivos para el nombre */
+@media (max-width: 768px) {
+  #name {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  #name {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+}
+
 #text {
   font-size: 1.3rem;
   line-height: 1.8;
@@ -158,6 +259,27 @@ html {
   margin-bottom: 20px;
   opacity: 1;
   letter-spacing: 0.3px;
+  overflow-y: auto;
+  max-height: 15vh;
+}
+
+/* Ajustes responsivos para el texto */
+@media (max-width: 768px) {
+  #text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    max-height: 18vh;
+  }
+}
+
+@media (max-width: 480px) {
+  #text {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    max-height: 20vh;
+  }
 }
 
 @keyframes fadeInText {
@@ -191,6 +313,22 @@ html {
   flex-wrap: wrap;
   gap: 15px;
   opacity: 1;
+  justify-content: center;
+}
+
+/* Ajustes responsivos para opciones */
+@media (max-width: 768px) {
+  #options {
+    gap: 12px;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  #options {
+    gap: 10px;
+  }
 }
 
 @keyframes fadeInOptions {
@@ -214,13 +352,34 @@ html {
   border: 2px solid transparent;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   box-shadow: 0 6px 20px rgba(44, 90, 160, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
   letter-spacing: 0.5px;
   transform: translateY(0);
+  min-width: 200px;
+  touch-action: manipulation;
+}
+
+/* Ajustes responsivos para botones */
+@media (max-width: 768px) {
+  #options button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    min-width: 250px;
+    max-width: 90vw;
+  }
+}
+
+@media (max-width: 480px) {
+  #options button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    min-width: 280px;
+    max-width: 95vw;
+  }
 }
 
 #options button::before {
@@ -239,7 +398,9 @@ html {
   transition: left 0.6s;
 }
 
-#options button:hover {
+/* Efectos hover y active optimizados para móviles */
+#options button:hover,
+#options button:focus {
   background: linear-gradient(135deg, #4a90e2, #2c5aa0);
   border-color: #87ceeb;
   transform: translateY(-3px);
@@ -255,6 +416,18 @@ html {
   transform: translateY(-1px);
 }
 
+/* Efectos táctiles para móviles */
+@media (hover: none) and (pointer: coarse) {
+  #options button:hover {
+    transform: none;
+  }
+  
+  #options button:active {
+    background: linear-gradient(135deg, #4a90e2, #2c5aa0);
+    transform: scale(0.98);
+  }
+}
+
 /* Efectos de partículas de nieve */
 .snowflake {
   position: absolute;
@@ -266,38 +439,19 @@ html {
   animation: snowfall linear infinite;
 }
 
+/* Reducir partículas en móviles */
+@media (max-width: 768px) {
+  .snowflake {
+    font-size: 0.8rem;
+  }
+}
+
 @keyframes snowfall {
   from {
     transform: translateY(-100px) rotate(0deg);
   }
   to {
     transform: translateY(100vh) rotate(360deg);
-  }
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  #character {
-    width: 280px;
-    height: 850px;
-  }
-
-  #dialogue-box {
-    padding: 20px 25px;
-  }
-
-  #text {
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
-
-  #name {
-    font-size: 1.2rem;
-  }
-
-  #options button {
-    padding: 12px 20px;
-    font-size: 1rem;
   }
 }
 
@@ -321,6 +475,23 @@ html {
   color: #87ceeb;
 }
 
+.loading-content h2 {
+  font-size: 1.5rem;
+}
+
+/* Ajustes responsivos para loading */
+@media (max-width: 768px) {
+  .loading-content h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-content h2 {
+    font-size: 1.1rem;
+  }
+}
+
 .loading-spinner {
   width: 50px;
   height: 50px;
@@ -331,6 +502,16 @@ html {
   margin: 0 auto 20px;
 }
 
+/* Ajustes responsivos para spinner */
+@media (max-width: 480px) {
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+    margin-bottom: 15px;
+  }
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -338,4 +519,87 @@ html {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Touch indicator para móviles */
+#touch-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(135, 206, 235, 0.1);
+  border: 1px solid rgba(135, 206, 235, 0.3);
+  color: #87ceeb;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-family: "Cinzel", serif;
+  z-index: 4;
+  animation: pulse 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Mostrar solo en móviles */
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+}
+
+/* Ocultar en móviles */
+.desktop-only {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+}
+
+/* Optimizaciones de rendimiento para móviles */
+@media (max-width: 768px) {
+  * {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  #background,
+  #character {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+}
+
+/* Scrollbar personalizado para el texto */
+#text::-webkit-scrollbar {
+  width: 4px;
+}
+
+#text::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+#text::-webkit-scrollbar-thumb {
+  background: rgba(135, 206, 235, 0.5);
+  border-radius: 2px;
+}
+
+#text::-webkit-scrollbar-thumb:hover {
+  background: rgba(135, 206, 235, 0.7);
 }
