@@ -8,7 +8,7 @@ body,
 html {
   font-family: "Crimson Text", serif;
   background: #0a0a0a;
-  height: 90vh;
+  height: 100vh;
   overflow: hidden;
   color: #f0f0f0;
   cursor: default;
@@ -84,7 +84,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 15vh;
+  top: 250px;
   left: 50%;
   transform: translateX(-50%);
   width: 350px;
@@ -106,7 +106,7 @@ html {
   #character {
     transition: all 0.3s ease-out;
     top: 10vh;
-    height: 50vh;
+    height: 40vh;
     width: 280px;
   }
 }
